@@ -76,6 +76,7 @@ function App() {
   const [editId, setEditId] = useState(null);
   const [editText, setEditText] = useState('');
   const [filter, setFilter] = useState('all');
+  const [search, setSearch] = useState('');
 
   // Load tasks from localStorage
   useEffect(() => {
@@ -141,6 +142,18 @@ function App() {
     setFilter(event.target.value);
   };
 
+  // Function to handle the search change
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
+  };
+
+  // Filter tasks based on the search query
+  const searchedTasks = filteredTasks.filter(task =>
+    task.text.toLowerCase().includes(search.toLowerCase())
+  );
+
+
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -179,9 +192,17 @@ function App() {
         </Select>
 
 
+        <TextField
+          fullWidth
+          label="Search Tasks 🔍"
+          variant="outlined"
+          value={search}
+          onChange={handleSearchChange}
+          style={{ marginBottom: '2rem', boxShadow: '0 2px 4px 0 rgba(0,0,0,0.2)' }}
+        />
 
         <List>
-          {filteredTasks.map((task) => (
+          {searchedTasks.map((task) => (
             <StyledCard key={task.id} variant="outlined">
               {editId === task.id ? (
                 <ListItem style={{ display: 'flex', justifyContent: 'space-between' }}>
