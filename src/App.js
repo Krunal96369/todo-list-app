@@ -1,5 +1,4 @@
 import { Check, Close } from '@mui/icons-material';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import {
@@ -27,7 +26,7 @@ import React, { useEffect, useState } from 'react';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#9669ff',
+      main: '#657ef7',
     },
     background: {
       default: '#f9f9f9',
@@ -59,6 +58,17 @@ const StyledCard = styled(Card)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
 }));
 
+const ActionButtonContainer = styled(Box)(({ theme }) => ({
+  display: 'inline-flex',
+  color: theme.palette.text.secondary,
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: 30,
+  height: 30,
+  backgroundColor: '#e0e0e0', // Gray background
+  borderRadius: '15%', // Circular border
+  margin: theme.spacing(1),
+}));
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -150,7 +160,6 @@ function App() {
           />
           <StyledButton
             variant="contained"
-            startIcon={<AddCircleOutlineIcon />}
             onClick={addTask}
           >
             Add Task
@@ -196,12 +205,13 @@ function App() {
                 <ListItem
                   secondaryAction={
                     <CardActions>
-                      <IconButton edge="end" aria-label="delete" onClick={() => deleteTask(task.id)}>
+
+                      <ActionButtonContainer edge="end" aria-label="delete" onClick={() => deleteTask(task.id)}>
                         <DeleteIcon />
-                      </IconButton>
-                      <IconButton edge="end" aria-label="edit" onClick={() => startEdit(task.id)}>
+                      </ActionButtonContainer>
+                      <ActionButtonContainer edge="end" aria-label="edit" onClick={() => startEdit(task.id)}>
                         <EditIcon />
-                      </IconButton>
+                      </ActionButtonContainer>
                     </CardActions>
                   }
                   style={{ display: 'flex', justifyContent: 'space-between' }}
